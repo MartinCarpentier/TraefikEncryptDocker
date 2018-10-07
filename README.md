@@ -29,6 +29,12 @@ Install the libraries needed generating passwords (Used by the script below)
 apt-get install apache2-utils
 ```
 
+Give the shell script execution priveledges
+
+``` bash
+sudo chmod +x ./Setup.sh
+```
+
 Then run the following bash script as a sudo user, to setup the correct files on the computer.
 
 Both domain and email must be provided, else the script fails.
