@@ -5,6 +5,11 @@
 #  exit
 #fi
 
+domainProvided=0
+emailProvided=0
+userProvided=0
+passwordProvided=0
+
 amountOfParameters="$#"
 
 POSITIONAL=()
@@ -23,6 +28,16 @@ case $key in
     shift # past argument
     shift # past value
     ;;
+    -u|--user)
+    USER="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -p|--password)
+    PASSWORD="$2"
+    shift # past argument
+    shift # past value
+    ;;
     *)    # unknown option
     POSITIONAL+=("$1") # save it in an array for later
     shift # past argument
@@ -33,15 +48,19 @@ set -- "${POSITIONAL[@]}" # restore positional parameters
 
 if [ -z ${DOMAIN+x} ]; then echo "Domain was not supplied"; else domainProvided=1; fi
 if [ -z ${EMAIL+x} ]; then echo "Email was not supplied"; else emailProvided=1; fi
+if [ -z ${USER+x} ]; then echo "User was not supplied"; else userProvided=1; fi
+if [ -z ${PASSWORD+x} ]; then echo "Password was not supplied"; else passwordProvided=1; fi
 
-if [ "$amountOfParameters" -ne 4 ] || [ "$emailProvided" -ne 1 ] || [ "$domainProvided" -ne 1 ] ; then
+if [ "$emailProvided" -ne 1 ] || [ "$domainProvided" -ne 1 ] || [ "$userProvided" -ne 1 ] || [ "$passwordProvided" -ne 1 ] ; then
   echo "Error: both variables must be provided, and only one of each"
-  echo "Usage: sudo Setup.sh -domain mysite.com -email my@email.com"
+  echo "Usage: sudo Setup.sh -domain mysite.com -email my@email.com -u user -p password"
   exit 1
 fi
 
-echo DOMAIN          = "${DOMAIN}"
-echo EMAIL           = "${EMAIL}"
+echo DOMAIN             = "${DOMAIN}"
+echo EMAIL              = "${EMAIL}"
+echo USER               = "${USER}"
+echo PASSWORD           = "${PASSWORD}"
 
 echo Create docker network
 docker network create web
@@ -57,9 +76,17 @@ yes | cp -rf ./Setup/traefik.toml /opt/traefik/traefik.toml
 echo Running CHMOD 600 on the acme.json file
 chmod 600 /opt/traefik/acme.json
 
-echo 's/email = "YourMail"/email = "$DOMAIN"/'
-echo 's/email = "YourMail"/email = "$DOMAIN"/'
+firstPartEmail='s/email = "YourMail"/email = "'
+lastPartEmail='"/'
+emailConcat=$firstPartEmail$EMAIL$lastPartEmail
 
-sed -i 's/email = "YourMail"/email = "$DOMAIN"/' /opt/traefik/traefik.toml
-sed -i 's/domain = "YourDomain"/email = "$EMAIL"/' /opt/traefik/traefik.toml
+firstPartDomain='s/domain = "YourDomain"/domain = "'
+lastPartDomain='"/'
+domainConcat=$firstPartDomain$DOMAIN$lastPartDomain
 
+sed -i "$emailConcat" /opt/traefik/traefik.toml
+sed -i "$domainConcat" /opt/traefik/traefik.toml
+
+stuff=$($(htpasswd -nb myUser password)
+
+echo $userAndPassword

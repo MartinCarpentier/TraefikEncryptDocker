@@ -12,7 +12,17 @@ defaultEntryPoints = ["https","http"]
   address = ":443"
   [entryPoints.https.tls]
 
+  [entryPoints.foo]
+   address=":8080"
+   [entryPoints.foo.auth]
+     [entryPoints.foo.auth.basic]
+       users = ["ApiUser"]
+
 [retry]
+
+[api]
+dashboard = true
+entrypoint="traefik"
 
 [docker]
 endpoint = "unix:///var/run/docker.sock"
