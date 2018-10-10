@@ -88,7 +88,7 @@ basicUserAuthInfo=$(htpasswd -nb $USER $PASSWORD)
 
 echo $basicUserAuthInfo
 
-firstPartUser='s/users = ["ApiUser"]/users = ["'
+firstPartUser='s/["ApiUser"]/["'
 lastPartUser='"]/'
 userConcat=$firstPartUser$basicUserAuthInfo$lastPartUser
 
