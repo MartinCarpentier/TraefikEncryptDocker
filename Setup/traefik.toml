@@ -10,13 +10,13 @@ defaultEntryPoints = ["https","http"]
     entryPoint = "https"
   [entryPoints.https]
   address = ":443"
-  [entryPoints.https.tls]
+    [entryPoints.https.tls]
 
   [entryPoints.traefik]
-   address=":8080"
-   [entryPoints.traefik.auth]
-     [entryPoints.traefik.auth.basic]
-       users = ["ApiUser"]
+  address=":8080"
+  [entryPoints.traefik.auth]
+    [entryPoints.traefik.auth.basic]
+      users = ["ApiUser"]
 
 [retry]
 
@@ -31,9 +31,9 @@ watch = true
 exposedByDefault = false
 
 [acme]
-email = "YourMail"
-storage = "acme.json"
-entryPoint = "https"
-onHostRule = true
-[acme.httpChallenge]
-entryPoint = "http"
+    email = "YourMail"
+    storage = "acme.json"
+    entryPoint = "https"
+    onHostRule = true
+    [acme.httpChallenge]
+        entryPoint = "http"
