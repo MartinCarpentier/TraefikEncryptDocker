@@ -12,10 +12,10 @@ defaultEntryPoints = ["https","http"]
   address = ":443"
   [entryPoints.https.tls]
 
-  [entryPoints.foo]
+  [entryPoints.traefik]
    address=":8080"
-   [entryPoints.foo.auth]
-     [entryPoints.foo.auth.basic]
+   [entryPoints.traefik.auth]
+     [entryPoints.traefik.auth.basic]
        users = ["ApiUser"]
 
 [retry]

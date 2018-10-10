@@ -69,7 +69,6 @@ echo Creating the folder /opt/traefik
 mkdir -p /opt/traefik
 
 echo Copying files to the new folder
-yes | cp -rf ./Setup/docker-compose.yml /opt/traefik/docker-compose.yml
 yes | cp -rf ./Setup/acme.json /opt/traefik/acme.json
 yes | cp -rf ./Setup/traefik.toml /opt/traefik/traefik.toml
 
