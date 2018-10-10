@@ -76,20 +76,20 @@ yes | cp -rf ./Setup/traefik.toml /opt/traefik/traefik.toml
 echo Running CHMOD 600 on the acme.json file
 chmod 600 /opt/traefik/acme.json
 
-firstPartEmail='s/email = "YourMail"/email = "'
-lastPartEmail='"/'
+firstPartEmail='s*YourMail*'
+lastPartEmail='*'
 emailConcat=$firstPartEmail$EMAIL$lastPartEmail
 
-firstPartDomain='s/domain = "YourDomain"/domain = "'
-lastPartDomain='"/'
+firstPartDomain='s*YourDomain*'
+lastPartDomain='*'
 domainConcat=$firstPartDomain$DOMAIN$lastPartDomain
 
 basicUserAuthInfo=$(htpasswd -nb $USER $PASSWORD)
 
 echo $basicUserAuthInfo
 
-firstPartUser='s/["ApiUser"]/["'
-lastPartUser='"]/'
+firstPartUser='s*ApiUser*'
+lastPartUser='*'
 userConcat=$firstPartUser$basicUserAuthInfo$lastPartUser
 
 echo $userConcat
