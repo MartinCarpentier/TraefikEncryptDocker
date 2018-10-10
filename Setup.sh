@@ -84,9 +84,16 @@ firstPartDomain='s/domain = "YourDomain"/domain = "'
 lastPartDomain='"/'
 domainConcat=$firstPartDomain$DOMAIN$lastPartDomain
 
+basicUserAuthInfo=$(htpasswd -nb myUser password)
+
+echo $basicUserAuthInfo
+
+firstPartUser='s/users = ["ApiUser"]/users = ["'
+lastPartUser='"]/'
+userConcat=$firstPartUser$basicUserAuthInfo$lastPartUser
+
+echo $userConcat
+
 sed -i "$emailConcat" /opt/traefik/traefik.toml
 sed -i "$domainConcat" /opt/traefik/traefik.toml
-
-stuff=$($(htpasswd -nb myUser password)
-
-echo $userAndPassword
+sed -i "$userConcat" /opt/traefik/traefik.toml
