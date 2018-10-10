@@ -84,7 +84,7 @@ firstPartDomain='s/domain = "YourDomain"/domain = "'
 lastPartDomain='"/'
 domainConcat=$firstPartDomain$DOMAIN$lastPartDomain
 
-basicUserAuthInfo=$(htpasswd -nb myUser password)
+basicUserAuthInfo=$(htpasswd -nb $USER $PASSWORD)
 
 echo $basicUserAuthInfo
 
