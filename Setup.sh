@@ -96,3 +96,6 @@ echo $userConcat
 sed -i "$emailConcat" /opt/traefik/traefik.toml
 sed -i "$domainConcat" /opt/traefik/traefik.toml
 sed -i "$userConcat" /opt/traefik/traefik.toml
+
+docker-compose up -d traefik
+
