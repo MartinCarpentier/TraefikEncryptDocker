@@ -1,0 +1,20 @@
+version: '3'
+
+networks:
+    web:
+        external: true
+    internal:
+        external: false
+
+services:
+    carpentierpro:
+        image: nginxdemos/hello:latest
+        labels:
+          - traefik.backend=nginxtest
+          - traefik.frontend.rule=Host:test.carpentier.pro
+          - traefik.docker.network=web
+          - traefik.enable=true
+        networks:
+          - internal
+          - web
+        restart: always
